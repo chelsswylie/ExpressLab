@@ -1,0 +1,7 @@
+<h1>My Cart</h1>
+<ul *ngFor="let item of myCart; index as i">
+  <div>{{ item.id }}</div>
+  <div>{{ item.product }}</div>
+  <div>{{ item.price }}</div>
+  <div>{{ item.quantity }}</div>
+</ul>
