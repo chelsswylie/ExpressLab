@@ -40,7 +40,7 @@ __webpack_require__.r(__webpack_exports__);
 
 class AppComponent {
     constructor() {
-        this.title = 'expressLab1';
+        this.title = 'expressLab';
     }
 }
 AppComponent.ɵfac = function AppComponent_Factory(t) { return new (t || AppComponent)(); };
@@ -52,7 +52,7 @@ AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCompo
         args: [{
                 selector: 'app-root',
                 templateUrl: './app.component.html',
-                styleUrls: ['./app.component.css']
+                styleUrls: ['./app.component.css'],
             }]
     }], null, null); })();
 
@@ -255,7 +255,7 @@ _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["platformBrowser"]().boot
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\chels\Desktop\expressLab1\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\chels\Desktop\expresslab\src\main.ts */"./src/main.ts");
 
 
 /***/ })
