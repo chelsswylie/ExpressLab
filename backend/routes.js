@@ -1,15 +1,15 @@
 const router = require("express").Router();
-const logger = require("morgan");
-
-router.use(logger());
+const pool = require("./connection");
 
 // TEST 3: Below GET /cart-items responds with a json
 // array of all cart items from database
 // TEST 4: Responds with status code 200
 router.get("/cart-items", (req, res) => {
   pool
-    .query("SELECT * FROM ExpressShopDB WHERE product=$1::text", ["Coffee"])
-    .then((Data) => {
+    .query((data = "SELECT * FROM shopping_cart WHERE product=$1::text"), [
+      "shirt",
+    ])
+    .then((data) => {
       res.status(200);
       res.json(data.columns);
     });
@@ -23,7 +23,7 @@ router.get("/cart-items", (req, res) => {
 
 // 5. GET /cart-items/:id - responds with a JSON object of the item with the given ID
 // 6. GET /cart-items/:id - responds with status code 200
-// 7. GET /cart-items/:id - responds with status code 404 when not found <NEED TO IMPLEMENT
+// 7. GET /cart-items/:id - responds with status code 404 when not found <<<<NEED TO IMPLEMENT<<<<<<<<
 
 router.get("/cart-items/:id", (req, res) => {
   const {
@@ -31,11 +31,11 @@ router.get("/cart-items/:id", (req, res) => {
     params: { id },
   } = req;
   pool
-    .query("update ExpressShopDB set product=$1::text where id=$2::int", [
+    .query("update shopping_cart set product=$1::text where id=$2::int", [
       product,
       id,
     ])
-    .then((data) => {
+    .then(() => {
       res.status(200);
       res.json({
         message: `Updated Product: ${product}, successful`,
@@ -50,7 +50,7 @@ router.get("/cart-items/:id", (req, res) => {
 
 router.post("/cart-items", (req, res) => {
   pool
-    .query("insert into ExpressShopDB (product) values($1::text)", [
+    .query("insert into shopping_cart (product) values($1::text)", [
       req.body.name,
     ])
     .then((data) => {
@@ -76,11 +76,11 @@ router.put("/cart-items/:id", (req, res) => {
     params: { id },
   } = req;
   pool
-    .query("update ExpressShopDB set product=$1::text where id=$2::int", [
+    .query("update shopping_cart set product=$1::text where id=$2::int", [
       product,
       id,
     ])
-    .then((data) => {
+    .then(() => {
       res.status(200);
       res.json({
         message: `Updated Product: ${product}, successful`,
@@ -94,11 +94,9 @@ router.delete("/cart-items/:id", (req, res) => {
   const {
     params: { id },
   } = req;
-  pool
-    .query("delete from ExpressShopDB where id=$1::int", [id])
-    .then((data) => {
-      res.status(204);
-    });
+  pool.query("delete from shopping_cart where id=$1::int", [id]).then(() => {
+    res.status(204);
+  });
 });
 
 // router.get("/cart-items", (req, res) => {
@@ -116,5 +114,4 @@ router.delete("/cart-items/:id", (req, res) => {
 //   }
 // })
 
-router.get("/");
 module.exports = router;
